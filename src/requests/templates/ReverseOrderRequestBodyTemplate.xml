@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TKKPG>
+    <Request>
+      <Operation>Reverse</Operation>
+      <Language>{{lang}}</Language>
+      <Order>
+        <Merchant>{{merchantId}}</Merchant>
+        <OrderID>{{orderId}}</OrderID>
+          <Positions>
+              <Position>
+                  <PaymentSubjectType>1</PaymentSubjectType>
+                  <Quantity>1</Quantity>
+                  <PaymentType>2</PaymentType>
+                  <PaymentMethodType>1</PaymentMethodType>
+              </Position>
+          </Positions>
+      </Order>
+      <Description>{{description}}</Description>
+      <SessionID>{{sessionId}}</SessionID>
+      <TranId></TranId>
+      <Source>1</Source>
+    </Request>
+</TKKPG>

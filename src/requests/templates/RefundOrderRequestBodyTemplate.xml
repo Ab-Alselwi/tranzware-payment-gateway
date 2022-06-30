@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+  <TKKPG>
+    <Request>
+      <Operation>Refund</Operation>
+      <Language>{{lang}}</Language>
+      <Order>
+        <Merchant>{{merchantId}}</Merchant>
+        <OrderID>{{orderId}}</OrderID>
+          <Positions>
+            <Position>
+              <PaymentSubjectType>1</PaymentSubjectType>
+              <Quantity>1</Quantity>
+              <Price>13.50</Price>
+              <Tax>1</Tax>
+              <Text>name position</Text>
+              <PaymentType>2</PaymentType>
+              <PaymentMethodType>1</PaymentMethodType>
+            </Position>
+          </Positions>
+      </Order>
+      <Description>{{description}}</Description>
+      <SessionID>{{sessionId}}</SessionID>
+      <Refund>
+        <Amount>{{amount}}</Amount>
+        <Currency>{{currency}}</Currency>
+        <WithFee>false</WithFee>
+      </Refund>
+      <Source>1</Source>
+    </Request>
+</TKKPG>

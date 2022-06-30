@@ -1,5 +1,7 @@
 # TranzWare Payment Gateway (TWPG) API
 
+This package was inspired by :
+- [open-payment-solutions/tranzware-payment-gateway](https://github.com/Open-Payment-Solutions/TranzWarePaymentGatewayApi)
 ----
 
 **Description:**
