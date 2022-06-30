@@ -26,3 +26,4 @@ See [samples](samples) folder
 ---
 
 [Integration manual (in Russian language)](docs/Integration_Instruction_TWEC_PG.pdf)
+[Integration manual (in English language)](docs/Integration_Instruction_TWEC_PG-En.pdf)
