@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-  <TKKPG>
+<TKKPG>
     <Request>
       <Operation>Refund</Operation>
       <Language>{{lang}}</Language>
@@ -10,7 +10,7 @@
             <Position>
               <PaymentSubjectType>1</PaymentSubjectType>
               <Quantity>1</Quantity>
-              <Price>13.50</Price>
+              <Price>1</Price>
               <Tax>1</Tax>
               <Text>name position</Text>
               <PaymentType>2</PaymentType>

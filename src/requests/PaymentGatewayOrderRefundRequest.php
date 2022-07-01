@@ -28,12 +28,12 @@ class PaymentGatewayOrderRefundRequest implements PaymentGatewayRequestInterface
      */
     public function __construct(
         $requestUrl, $merchantId, $orderId, $sessionId, $amount, $currency,
-        $description = '',
+        $description = 'refund test',
         $lang = 'EN', $debugToFile = null
     ) {
 
         $this->requestAttributes =
-            compact('merchantId', 'requestUrl', 'orderId', 'sessionId', 'amount', 'currency',
+            compact('requestUrl','merchantId', 'orderId', 'sessionId', 'amount', 'currency',
                 'description', 'lang');
         $this->debugToFile = $debugToFile;
     }

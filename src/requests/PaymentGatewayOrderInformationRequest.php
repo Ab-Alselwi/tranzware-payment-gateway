@@ -32,7 +32,7 @@ class PaymentGatewayOrderInformationRequest implements PaymentGatewayRequestInte
         $lang = 'EN', $debugToFile = null
     ) {
         $this->requestAttributes =
-            compact('merchantId', 'requestUrl', 'orderId', 'sessionId', 'lang');
+            compact('requestUrl','merchantId',  'orderId', 'sessionId', 'lang');
         $this->debugToFile = $debugToFile;
     }
 
