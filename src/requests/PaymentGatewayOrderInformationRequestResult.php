@@ -26,8 +26,7 @@ class PaymentGatewayOrderInformationRequestResult implements PaymentGatewayReque
         $this->responseBody = $HTTPClientResult->getOutput();
         $info = $HTTPClientResult->getInfo();
         $this->httpStatus = $info['http_code'];
-       /* logger(  json_decode(
-                json_encode($this->responseBody)));*/
+
         if (!$this->responseBody) {
             $this->status = null;
             $this->data = [];
@@ -42,33 +41,42 @@ class PaymentGatewayOrderInformationRequestResult implements PaymentGatewayReque
                 false
             );
           
-        $this->data=$this->data->row;
-        return;
         $order = $this->data->row;
-    
-        $this->data = [
-            'id'                    => $order->id,
-            'OrderId'               => $order->OrderID??$order->id,
-            'SessionId'             => $order->SessionID,
-            'createDate'            => $order->createDate,
-            'lastUpdateDate'        => $order->lastUpdateDate,
-            'payDate'               => $order->payDate,
-            'Amount'                => $order->Amount,
-            'Currency'              => $order->Currency,
-            'OrderLanguage'         => $order->OrderLanguage,
-            'Description'           => $order->Description,
-            'ApproveURL'            => $order->ApproveURL,
-            'CancelURL'             => $order->CancelURL,
-            'DeclineURL'            => $order->DeclineURL,
-            'OrderStatus'           => $order->Orderstatus,
-            'twoId'                 => $order->twoId,
-            'RefundAmount'          => $order->RefundAmount,
-            'RefundCurrency'        => $order->RefundCurrency,
-            'Fee'                   => $order->Fee,
-            'RefundDate'            => $order->RefundDate,
-            'TWODate'               => $order->TWODate,
-            'TWOTime'               => $order->TWOTime,
-        ];
+        $this->status = $order->Orderstatus;
+        
+        $this->data = null;
+
+        if ($this->success()) {
+            
+            $this->data = [
+                'id'                    => $order->id,
+                'OrderId'               => $order->id,
+                'SessionId'             => $order->SessionID,
+                'createDate'            => $order->createDate,
+                'lastUpdateDate'        => $order->lastUpdateDate,
+                'payDate'               => $order->payDate,
+                'Amount'                => $order->Amount,
+                'Currency'              => $order->Currency,
+                'OrderLanguage'         => $order->OrderLanguage,
+                'Description'           => $order->Description,
+                'ApproveURL'            => $order->ApproveURL,
+                'CancelURL'             => $order->CancelURL,
+                'DeclineURL'            => $order->DeclineURL,
+                'OrderStatus'           => $order->Orderstatus,
+                'Receipt'               => $order->Receipt,
+                'twoId'                 => $order->twoId,
+                'RefundAmount'          => $order->RefundAmount,
+                'RefundCurrency'        => $order->RefundCurrency,
+                'ExtSystemProcess'      => $order->ExtSystemProcess,
+                'OrderType'             => $order->OrderType,
+                'OrderSubType'          => $order->OrderSubType,
+                'Fee'                   => $order->Fee,
+                'Email'                 => $order->Email,
+                'RefundDate'            => $order->RefundDate,
+                'TWODate'               => $order->TWODate,
+                'TWOTime'               => $order->TWOTime,
+            ];
+        }
 
     }
 
@@ -84,7 +92,7 @@ class PaymentGatewayOrderInformationRequestResult implements PaymentGatewayReque
 
     final public function success()
     {
-        return $this->data['OrderStatus'] ;
+        return $this->httpStatus== 200 ;
     }
 
     final public function getStatus()

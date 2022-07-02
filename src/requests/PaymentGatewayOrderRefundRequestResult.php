@@ -44,11 +44,15 @@ class PaymentGatewayOrderRefundRequestResult implements PaymentGatewayRequestRes
         $response = $this->data->Response;
         
         $this->status = $response->Status;
-       // dd($response);
-        $this->data = [
-            //'OrderId'       => $order->OrderID,
-            'OrderStatus'   => $response->Status
-        ];
+        $this->data = null;
+        
+        if ($this->success()) {
+            $this->data = [
+                 'Operation'     => $response->Operation,
+                 'Status'       => $order->Status,
+                'OrderStatus'   => ($response->Status==00)?'REFUNDED':null,
+            ];
+        }
     }
 
     public function getHttpStatus()
@@ -63,7 +67,7 @@ class PaymentGatewayOrderRefundRequestResult implements PaymentGatewayRequestRes
 
     final public function success()
     {
-        return $this->data['OrderStatus'] === 'APPROVED';
+        return $this->status === '00';
     }
 
     final public function getStatus()

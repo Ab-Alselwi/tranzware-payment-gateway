@@ -42,12 +42,18 @@ class PaymentGatewayOrderCompletionRequestResult implements PaymentGatewayReques
             );
 
         $response = $this->data->Response;
-        $order = $response->Order;
         $this->status = $response->Status;
-        $this->data = [
-           /* 'OrderId'       => $order->OrderID,
-            'OrderStatus'   => $order->Status*/
-        ];
+        $this->data = null;
+
+        if ($this->success()) {
+            $this->data = [
+                'Operation'     => $response->Operation,
+                'POSResponse'   => $response->POSResponse,
+                'OrderStatus'   => 'APPROVED',
+                'Status'        => $response->Status,
+
+            ];
+        }
     }
 
     public function getHttpStatus()
@@ -62,7 +68,7 @@ class PaymentGatewayOrderCompletionRequestResult implements PaymentGatewayReques
 
     final public function success()
     {
-        return $this->data['OrderStatus'] === 'APPROVED';
+         return $this->status === '00';
     }
 
     final public function getStatus()

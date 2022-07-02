@@ -44,11 +44,18 @@ class PaymentGatewayOrderReverseRequestResult implements PaymentGatewayRequestRe
         $response = $this->data->Response;
        
         $this->status = $response->Status;
-       // dd($response);
-        $this->data = [
-            //'OrderId'       => $order->OrderID,
-            'OrderStatus'   => $response->Status
-        ];
+        $this->data = null;
+        
+        if ($this->success()) {
+            $this->data = [
+                'OrderId'       => $response->Order->OrderID,
+                'Operation'     => $response->Operation,
+                'Status'        => $response->Status,
+                'OrderStatus'   => 'REVERSED',
+                'Reversal'      => $response->Reversal,
+                'Status'        => $response->Status,
+            ];
+        }
     }
 
     public function getHttpStatus()
@@ -63,7 +70,7 @@ class PaymentGatewayOrderReverseRequestResult implements PaymentGatewayRequestRe
 
     final public function success()
     {
-        return $this->data['OrderStatus'] === 'APPROVED';
+        return $this->status === '00';
     }
 
     final public function getStatus()
