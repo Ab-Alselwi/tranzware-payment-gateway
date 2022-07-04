@@ -45,12 +45,12 @@ class PaymentGatewayOrderRefundRequestResult implements PaymentGatewayRequestRes
         
         $this->status = $response->Status;
         $this->data = null;
-        
+
         if ($this->success()) {
             $this->data = [
                  'Operation'     => $response->Operation,
                  'Status'       => $order->Status,
-                'OrderStatus'   => ($response->Status==00)?'REFUNDED':null,
+                 'OrderStatus'   => 'ON-REFUND',
             ];
         }
     }
