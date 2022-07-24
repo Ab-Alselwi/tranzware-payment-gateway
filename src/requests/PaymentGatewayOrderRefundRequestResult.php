@@ -41,17 +41,26 @@ class PaymentGatewayOrderRefundRequestResult implements PaymentGatewayRequestRes
                 false
             );
 
-        $response = $this->data->Response;
-        
-        $this->status = $response->Status;
-        $this->data = null;
+       if(property_exists($this->data,'Response')){   
+            $response = $this->data->Response;
+            
+            $this->status = $response->Status;
+            $this->data = null;
+           
+            if ($this->success()) {
+                $this->data = [
+                     'Operation'     => $response->Operation,
+                     'Status'       =>  $response->Status,
+                     'OrderStatus'   => 'ON-REFUND',
+                ];
+                return;
+            } 
 
-        if ($this->success()) {
             $this->data = [
-                 'Operation'     => $response->Operation,
-                 'Status'       => $order->Status,
-                 'OrderStatus'   => 'ON-REFUND',
-            ];
+                    'Operation'     => $response->Operation,
+                    'Status'       =>  $response->Status,
+                    'OrderStatus'   => 'ERROR',
+                ];
         }
     }
 

@@ -40,44 +40,53 @@ class PaymentGatewayOrderInformationRequestResult implements PaymentGatewayReque
                 ),
                 false
             );
-          
-        $order = $this->data->row;
-        $this->status = $order->Orderstatus;
-        
-        $this->data = null;
 
         if ($this->success()) {
-            
-            $this->data = [
-                'id'                    => $order->id,
-                'OrderId'               => $order->id,
-                'SessionId'             => $order->SessionID,
-                'createDate'            => $order->createDate,
-                'lastUpdateDate'        => $order->lastUpdateDate,
-                'payDate'               => $order->payDate,
-                'Amount'                => $order->Amount,
-                'Currency'              => $order->Currency,
-                'OrderLanguage'         => $order->OrderLanguage,
-                'Description'           => $order->Description,
-                'ApproveURL'            => $order->ApproveURL,
-                'CancelURL'             => $order->CancelURL,
-                'DeclineURL'            => $order->DeclineURL,
-                'OrderStatus'           => $order->Orderstatus,
-                'Receipt'               => $order->Receipt,
-                'twoId'                 => $order->twoId,
-                'RefundAmount'          => $order->RefundAmount,
-                'RefundCurrency'        => $order->RefundCurrency,
-                'ExtSystemProcess'      => $order->ExtSystemProcess,
-                'OrderType'             => $order->OrderType,
-                'OrderSubType'          => $order->OrderSubType,
-                'Fee'                   => $order->Fee,
-                'Email'                 => $order->Email,
-                'RefundDate'            => $order->RefundDate,
-                'TWODate'               => $order->TWODate,
-                'TWOTime'               => $order->TWOTime,
-            ];
-        }
+        
+            if(property_exists($this->data,'Response')){
+                $Response=$this->data->Response;
+                $this->status = $Response->Status;
+                $this->data = [
+                    'OrderStatus'=> 'ERROR',
+                    'Operation'=> $Response->Operation,
+                    "Status" => $Response->Status,
+                ];
+                return;
+             }
 
+            if(property_exists($this->data,'row')){
+                $order = $this->data->row;
+                $this->status = $order->Orderstatus;
+                $this->data = [
+                        'id'                    => $order->id,
+                        'OrderId'               => $order->id,
+                        'SessionId'             => $order->SessionID,
+                        'createDate'            => $order->createDate,
+                        'lastUpdateDate'        => $order->lastUpdateDate,
+                        'payDate'               => $order->payDate,
+                        'Amount'                => $order->Amount,
+                        'Currency'              => $order->Currency,
+                        'OrderLanguage'         => $order->OrderLanguage,
+                        'Description'           => $order->Description,
+                        'ApproveURL'            => $order->ApproveURL,
+                        'CancelURL'             => $order->CancelURL,
+                        'DeclineURL'            => $order->DeclineURL,
+                        'OrderStatus'           => $order->Orderstatus,
+                        'Receipt'               => $order->Receipt,
+                        'twoId'                 => $order->twoId,
+                        'RefundAmount'          => $order->RefundAmount,
+                        'RefundCurrency'        => $order->RefundCurrency,
+                        'ExtSystemProcess'      => $order->ExtSystemProcess,
+                        'OrderType'             => $order->OrderType,
+                        'OrderSubType'          => $order->OrderSubType,
+                        'Fee'                   => $order->Fee,
+                        'Email'                 => $order->Email,
+                        'RefundDate'            => $order->RefundDate,
+                        'TWODate'               => $order->TWODate,
+                        'TWOTime'               => $order->TWOTime,
+                    ];
+            }
+        }
     }
 
     public function getHttpStatus()
