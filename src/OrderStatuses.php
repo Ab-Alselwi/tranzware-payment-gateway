@@ -2,9 +2,6 @@
 
 namespace Ab\TranzWarePaymentGateway;
 
-use \Jawira\CaseConverter\CaseConverterException;
-use \Jawira\CaseConverter\Convert;
-
 class OrderStatuses 
 {
 
@@ -26,23 +23,20 @@ class OrderStatuses
         if (!preg_match('/^[A-Za-z_]+?/', $value)) {
             return '';
         }
-        try {
-            return (new Convert($value))->toPascal();
-        } catch (CaseConverterException $e) {}
-        return '';
+       return str_replace('-','_',$value);
     }
 
     public static function isValid($orderStatus)
     {
-        $allowedTypes = static::getAllData();
+        $allowedTypes = array_keys(static::getAllData());
 
-        return in_array($orderType, $allowedTypes);
+        return in_array($orderStatus, $allowedTypes);
     }
 
-    public static function fromString($orderType)
+    public static function fromString($orderStatus)
     {
-        $orderType = self::sanitizeValue($orderType);
-        return self::isValid($orderType) ? $orderType : self::PURCHASE;
+        $orderStatus = self::sanitizeValue($orderStatus);
+        return self::isValid($orderStatus) ? $orderStatus : null;
     }
 
     /**
@@ -89,7 +83,7 @@ class OrderStatuses
     }
 
 
-    private static function getAll():array
+    public static function getAllData():array
     {
         return [
                  'CREATED'          => 'CREATED',
@@ -105,11 +99,9 @@ class OrderStatuses
                  'EXPIRED'          => 'EXPIRED',
                  'ERROR'            => 'ERROR',
             ];
-
-       
     }
 
-    private static function getAllStatusesWithInfo():array
+    public static function getAllStatusesWithInfo():array
     {
 
      return [
