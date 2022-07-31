@@ -134,7 +134,7 @@ class PaymentGatewayRequestFactory implements PaymentGatewayRequestFactoryInterf
      *
      * @return PaymentGatewayRequestFactory
      */
-    final private function setUrlProvider(PaymentGatewayUrlProviderInterface $urlProvider)
+    private function setUrlProvider(PaymentGatewayUrlProviderInterface $urlProvider)
     {
         $this->urlProvider = $urlProvider;
         return $this;
