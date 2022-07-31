@@ -1,6 +1,5 @@
 {
   "name": "ab-alselwi/tranzware-payment-gateway",
-  "version": "1.0.0",
   "description": "Library for working with TranzWare Payment Gateway (kapitalbank)",
   "type": "library",
   "license": "MIT",
