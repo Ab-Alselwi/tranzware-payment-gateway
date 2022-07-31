@@ -24,7 +24,7 @@ provided by CompassPlus , kapitalbank
 **Installation:**
 
 ```
-composer require ab-alselwi/tranzware-payment-gateway
+composer require ab-alselwi/tranzware-payment-gateway:0.1.2
 ```
 
 ---
