@@ -14,7 +14,7 @@
     "ext-curl": "*",
     "ext-json": "*",
     "ext-simplexml": "*",
-    "jawira/case-converter": ">=3.3.3",
+    "jawira/case-converter": "^3.3.3",
     "squizlabs/php_codesniffer": "^3.5"
   },
   "require-dev": {
