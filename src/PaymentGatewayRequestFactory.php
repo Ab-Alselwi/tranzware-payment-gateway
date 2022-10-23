@@ -4,7 +4,6 @@ namespace Ab\TranzWarePaymentGateway;
 
 
 use Ab\TranzWarePaymentGateway\PaymentGatewayRequestFactory;
-use Ab\TranzWarePaymentGateway\PaymentGatewayHandlerFactory;
 
 use Ab\TranzWarePaymentGateway\Requests\PaymentGatewayOrderRequest;
 use Ab\TranzWarePaymentGateway\Requests\PaymentGatewayOrderStatusRequest;
