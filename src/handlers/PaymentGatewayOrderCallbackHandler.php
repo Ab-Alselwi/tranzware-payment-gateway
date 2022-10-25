@@ -31,11 +31,11 @@ class PaymentGatewayOrderCallbackHandler implements PaymentGatewayHandlerInterfa
             false
         );
         return [
-            'DateTime'      => $data->TranDateTime,
-            'OrderId'       => $data->OrderID,
-            'Amount'        => $data->PurchaseAmount,
-            'Currency'      => $data->Currency,
-            'OrderStatus'   => $data->OrderStatus,
+            'DateTime'      => $data->Message->TranDateTime,	
+            'OrderId'       => $data->Message->OrderID,	
+            'Amount'        => $data->Message->PurchaseAmount,	
+            'Currency'      => $data->Message->Currency,	
+            'OrderStatus'   => $data->Message->OrderStatus,
             'xmlmsg'        => $_REQUEST['xmlmsg']
         ];
     }
