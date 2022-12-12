@@ -40,9 +40,15 @@ class PaymentGatewayOrderStatusRequestResult implements PaymentGatewayRequestRes
             );
 
         $response = $this->data->Response;
-        $order = $response->Order;
         $this->status = $response->Status;
+        if(!isset($response->Order)){
+            $this->data = (array) $response;
+            $this->data['OrderStatus'] = 'Unavailable';
+            return ;
+        }
+        $order = $response->Order;
         $this->data = [
+            'response'      => $response ,
             'OrderId'       => $order->OrderID,
             'OrderStatus'   => $order->OrderStatus
         ];
