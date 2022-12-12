@@ -2,6 +2,10 @@
 
 namespace Ab\TranzWarePaymentGateway;
 
+
+use Ab\TranzWarePaymentGateway\PaymentGatewayRequestFactoryInterface;
+use Ab\TranzWarePaymentGateway\PaymentGatewayUrlProviderInterface;
+
 use Ab\TranzWarePaymentGateway\Requests\PaymentGatewayOrderRequest;
 use Ab\TranzWarePaymentGateway\Requests\PaymentGatewayOrderStatusRequest;
 use Ab\TranzWarePaymentGateway\Requests\PaymentGatewayOrderCompletionRequest;
