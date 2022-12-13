@@ -19,9 +19,11 @@ class PaymentGatewayOrderCallbackHandler implements PaymentGatewayHandlerInterfa
     final public function handle()
     {
         $xmlmsg = @simplexml_load_string($_REQUEST['xmlmsg']);
-        if (!$xmlmsg) { $xmlmsg = @simplexml_load_string(base64_decode($_REQUEST['xmlmsg']));
+        if (!$xmlmsg) {
+            $xmlmsg = @simplexml_load_string(base64_decode($_REQUEST['xmlmsg']));
         }
-        if (!$xmlmsg) { return null;
+        if (!$xmlmsg) {
+            return null;
         }
 
         $data = json_decode(
@@ -30,12 +32,17 @@ class PaymentGatewayOrderCallbackHandler implements PaymentGatewayHandlerInterfa
             ),
             false
         );
+
+        if (property_exists($data, 'Message')) {
+            $data =  $data->Message;
+        }
+
         return [
-            'DateTime'      => $data->Message->TranDateTime,	
-            'OrderId'       => $data->Message->OrderID,	
-            'Amount'        => $data->Message->PurchaseAmount,	
-            'Currency'      => $data->Message->Currency,	
-            'OrderStatus'   => $data->Message->OrderStatus,
+            'DateTime'      => $data->TranDateTime,
+            'OrderId'       => $data->OrderID,
+            'Amount'        => $data->PurchaseAmount,
+            'Currency'      => $data->Currency,
+            'OrderStatus'   => $data->OrderStatus,
             'xmlmsg'        => $_REQUEST['xmlmsg']
         ];
     }
