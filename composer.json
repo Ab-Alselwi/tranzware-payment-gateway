@@ -1,7 +1,6 @@
 {
   "name": "ab-alselwi/tranzware-payment-gateway",
-  "description": "Library for working with TranzWare Payment Gateway (kapitalbank), this package was forked from  Open-Payment-Solutions /
-TranzWarePaymentGatewayApi ",
+  "description": "Library for working with TranzWare Payment Gateway (kapitalbank)",
   "type": "library",
   "license": "MIT",
   "authors": [

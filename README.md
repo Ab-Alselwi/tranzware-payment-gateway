@@ -1,10 +1,10 @@
 # TranzWare Payment Gateway (TWPG) API
 
 This package was inspired by :
+
 - [open-payment-solutions/tranzware-payment-gateway](https://github.com/Open-Payment-Solutions/TranzWarePaymentGatewayApi)
 
-
-----
+---
 
 **Description:**
 
@@ -12,13 +12,14 @@ Library for working with **TranzWare Payment Gateway (TWPG, also known as TWEC P
 provided by CompassPlus , kapitalbank
 
 - [Features] [kapitalbank] (https://pg.kapitalbank.az/docs)
-	- Purchase
-	- PreAuth (Added)
-	- OrderCompletion  (Added)
-	- OrderInformation (Added)
-	- Reverse (Added)
-	- Refund (Added)
-	- GetOrderStatus
+  - Purchase
+  - PreAuth (Added)
+  - OrderCompletion (Added)
+  - OrderInformation (Added)
+  - Reverse (Added)
+  - Refund (Added)
+  - GetOrderStatus
+
 ---
 
 **Installation:**
@@ -58,7 +59,7 @@ class PaymentService
     {
 
        $this->setMode();
-        
+
         $certs_link = base_path() . '/payment/';
 		if ($this->mode == 'test'){
 		        $this->merchant_handler = "https://e-commerce.kapitalbank.az:5443/Exec";
@@ -83,7 +84,7 @@ class PaymentService
 
          $lang=request()->lang??"en";
          $url=config('app.url').'/';
-         
+
          $this->requestFactory = new PaymentGatewayRequestFactory(
             $this->merchant_handler,
             $this->merchant,
@@ -101,7 +102,7 @@ class PaymentService
 
 
     public function getOrderStatus(){
-        
+
         $handlerFactory = new PaymentGatewayHandlerFactory();
         $orderCallbackHandler = $handlerFactory->createOrderCallbackHandler();
         $orderStatusData=$orderCallbackHandler->handle();
@@ -110,7 +111,7 @@ class PaymentService
     }
 
      public function getPreAuthOrder(){
-        
+
         return $this->requestFactory
                     ->createOrderPreAuthRequest($this->amount, $this->currency , $this->description);
     }
@@ -123,7 +124,7 @@ class PaymentService
 
     public function createOrderRequest()
     {
-        
+
         if($this->order_type==OrderTypes::PRE_AUTH){
             $orderRequest= $this->getPreAuthOrder();
             return $this->getExecute($orderRequest);
@@ -150,7 +151,7 @@ class PaymentService
             }
           }
         return false;
-        
+
     }
 
    public function setOrderCompletionRequest($order_id, $session_id,$amount, $currency=CurrencyCodes::AZN, $description = '')
@@ -198,29 +199,29 @@ class PaymentService
         $result = $request->execute();
         if($result->getStatus()){
             $data= $result->getData();
-   
+
             if(isset($data['OrderStatus'])){
                 $this->setState($data['OrderStatus']);
             }
-           
+
             return $data;
         }
         return null;
     }
 
-    public function setState($state):void 
+    public function setState($state):void
     {
         $this->state = $state;
     }
 
-    public function isApproved():bool 
+    public function isApproved():bool
     {
         return $this->getState()=='approved';
     }
 
     public function getState():bool|string
     {
-       
+
         if ($this->state === false) {
             return false;
         }
@@ -251,7 +252,7 @@ class PaymentService
 }
 ```
 
-now in your controller 
+now in your controller
 
 ```php
  public function __construct(PaymentService $PaymentService,$order_type=OrderTypes::PRE_AUTH)
@@ -260,6 +261,7 @@ now in your controller
         $this->paymentService=$PaymentService;
     }
 ```
+
 #### pay.
 
 ```php
@@ -274,7 +276,7 @@ now in your controller
         $orderData=$this->paymentService->createOrderRequest();
 
         if($orderData){
- 
+
             return redirect($orderData['PaymentUrl']);
         }
     }
@@ -303,24 +305,33 @@ now in your controller
         //write your code
     }
 ```
+
 #### Completion.
+
 ```php
 $orderRequestResult=$this->paymentService->setOrderCompletionRequest($order_id, $session_id,$amount);
 ```
 
 #### Reverse.
+
 ```php
  $orderRequestResult=$this->paymentService->setOrderReverseRequest($order_id, $session_id);
 ```
+
 #### Refund.
+
 ```php
 $orderRequestResult=$this->paymentService->setOrderRefundRequest($order_id, $session_id, $amount ,$currency,$description);
 ```
+
 #### OrderInfo.
+
 ```php
 $orderStatusDataBank = $this->paymentService->createOrderStatusRequest($order_id, $session_id);
 ```
+
 #### OrderDetails.
+
 ```php
 $orderStatusDataBank = $this->paymentService->getOrderInformation($order_id, $session_id);
 ```
@@ -330,9 +341,9 @@ $orderStatusDataBank = $this->paymentService->getOrderInformation($order_id, $se
 ```php
 use Ab\TranzWarePaymentGateway\OrderStatuses;
 
-//return  true or false 
+//return  true or false
 // true if current status = PREAUTH-APPROVED
-OrderStatuses::isCanCompletion($order_status) 
+OrderStatuses::isCanCompletion($order_status)
 
 ```
 
@@ -416,7 +427,7 @@ Statuses information
                     'code'=>'ERROR',
                     'description'=>'error (connection error with TWEC PG database, POS driver or TPTP terminal).',
                 ],
-                
+
             ];
 ```
 
@@ -426,4 +437,3 @@ See [samples](samples) folder added by (https://github.com/Open-Payment-Solution
 
 - [Integration manual (in Russian language)](docs/Integration_Instruction_TWEC_PG.pdf)
 - [Integration manual (in English language)](docs/Integration_Instruction_TWEC_PG-En.pdf)
-
